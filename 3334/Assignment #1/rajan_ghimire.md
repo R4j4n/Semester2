@@ -128,3 +128,10 @@ Communication
 **Relevant:** Improve skills in sharing knowledge efficiently in working environment.
 
 **Time-bound:** Complete this by the end of the year.
+
+
+Programming Languages: Python, C/C++, C#, CUDA
+Data Science: PyTorch, TensorFlow, Scikit-Learn, Pandas
+Web Development: Flask, FastAPI, Django
+Databases: PostgreSQL, MySQL, MongoDB
+DevOps: Docker, Kubernetes, Jenkins
