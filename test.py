@@ -1,57 +1,86 @@
-import streamlit as st
-from streamlit_pdf_viewer import pdf_viewer
+import re
+import string
+import pandas as pd
+from nltk.tokenize import RegexpTokenizer
 
 
-if "pdf_upload" not in st.session_state:
-    st.session_state.pdf_upload = None
+class Tokenizer:
+    def __init__(self) -> None:
+        self.tokenizer = RegexpTokenizer("[\w']+")
 
-if "view_pdf" not in st.session_state:
-    st.session_state.view_pdf = None
+    def word_tokenizer(self, text) -> re.Any:
+        return self.tokenizer.tokenize(text)
 
 
-if "pdf_file" not in st.session_state:
-    st.session_state.pdf_file = None
+class TextCleaner(Tokenizer):
 
-st.markdown(
-    """
-    <style>
-        section[data-testid="stSidebar"] {
-            width: 500px !important; # Set the width to your desired value
-        }
-    </style>
-    """,
-    unsafe_allow_html=True,
-)
+    def __init__(self, text: str) -> None:
+        super().__init__()
+        # The input text
+        self.text = text
 
-with st.sidebar:
-    messages = st.container(height=450)
-    if prompt := st.chat_input("What would you like to do? upload or view"):
-        messages.chat_message("user").write(prompt)
-        if prompt == "upload":
-            st.session_state.pdf_upload = True
+        # the acronyms url
+        self.acronyms_url = "https://raw.githubusercontent.com/sugatagh/E-commerce-Text-Classification/main/JSON/english_acronyms.json"
 
-            if st.session_state.pdf_file:
-                messages.chat_message("assistant").write(
-                    f"Thank you for uploading the pdf."
-                )
-        elif prompt == "view":
-            if st.session_state.pdf_upload:
-                st.session_state.view_pdf = True
-                messages.chat_message("assistant").write(f"Ok, here is your PDF.")
+        # load the acronym dict
+        self.acronym_dict = self.load_acronym()
+
+        # load acronym list
+        self.acronym_list = list(self.acronym_dict.keys())
+
+    def load_acronym(self):
+        return pd.read_json(self.acronyms_url, typ="series")
+
+    # Converting to lowercase
+    def convert_to_lowercase(self, text):
+        return text.lower()
+
+    # remove whitespace from the text
+    def remove_whitespace(self, text):
+        return text.strip()
+
+    # Removing punctuations from the given string
+    def remove_punctuation(self, text):
+        # get all the punctuations
+        punct_str = string.punctuation
+
+        # the apostrophe will be remove using contraction.
+        punct_str = punct_str.replace("'", "")
+        return text.translate(str.maketrans("", "", punct_str))
+
+    # Remove any HTML if present in the text.
+    def remove_html(self, text):
+        html = re.compile(r"<.*?>")
+        return html.sub(r"", text)
+
+    # Remove URLs
+    def remove_http(self, text):
+        http = "https?://\S+|www\.\S+"  # matching strings beginning with http (but not just "http")
+        pattern = r"({})".format(http)  # creating pattern
+        return re.sub(pattern, "", text)
+
+    # Remove any Emojis present in the text.
+    def remove_emoji(self, text):
+        emoji_pattern = re.compile(
+            "["
+            "\U0001F600-\U0001F64F"  # emoticons
+            "\U0001F300-\U0001F5FF"  # symbols & pictographs
+            "\U0001F680-\U0001F6FF"  # transport & map symbols
+            "\U0001F1E0-\U0001F1FF"  # flags (iOS)
+            "\U00002702-\U000027B0"
+            "\U000024C2-\U0001F251"
+            "]+",
+            flags=re.UNICODE,
+        )
+        return emoji_pattern.sub(r"", text)
+
+    def convert_acronyms(self, text):
+        words = []
+        for word in self.word_tokenizer(text):
+            if word in self.acronym_list:
+                words = words + self.acronyms_dict[word].split()
             else:
-                messages.chat_message("assistant").write(
-                    f"Please Upload file before viewing."
-                )
+                words = words + word.split()
 
-        else:
-            messages.chat_message("assistant").write(f"Please Type 1")
-
-
-if st.session_state.pdf_upload:
-    st.session_state.pdf_file = st.file_uploader("Upload PDF file", type=("pdf"))
-
-
-if st.session_state.pdf_upload and st.session_state.view_pdf:
-    if st.session_state.pdf_file:
-        binary_data = st.session_state.pdf_file.getvalue()
-        pdf_viewer(input=binary_data, width=700)
+        text_converted = " ".join(words)
+        return text_converted
