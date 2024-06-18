@@ -328,7 +328,7 @@ class TextPreprocess(Tokenizer):
     def __call__(self, text):
 
         text = self.remove_stopwords(text=text)
-        # text = self.pyspellchecker(text=text)
+        text = self.pyspellchecker(text=text)
         text = self.porter_stemmer(text=text)
         text = self.lemmatizer(text=text)
         text = self.remove_additional_stopwords(text=text)
