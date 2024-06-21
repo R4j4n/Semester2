@@ -1,0 +1,5 @@
+,Movie Name,Release Date,Close Price Before Release,Close Price After Release,Increase/Decrease,Amount,Percentage Change,Sentiment
+1,Furiosa: A Mad Max Saga,2024-05-22,8.09,7.7,Decrease,-0.39,-4.82,Positive
+2,Wonka,2023-12-06,11.39,10.82,Decrease,-0.57,-5.0,Positive
+3,Barbie,2023-07-19,12.31,13.11,Increase,0.8,6.5,Positive
+4,Evil Dead Rise,2023-04-12,15.4,14.04,Decrease,-1.36,-8.83,Positive
