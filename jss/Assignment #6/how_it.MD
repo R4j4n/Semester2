@@ -1,0 +1,3 @@
+**How ChatGPT helped me?**
+
+ChatGPT was an incredibly helpful tool as I was crafting my resume and cover letter. With its user-friendly interface, I was able to input information about my skills, experiences, and education with ease. The AI model then provided me with tailored suggestions for both documents, ensuring they were polished and professional. It even offered specific examples of action verbs and phrases that could be used to highlight my strengths and accomplishments. Additionally, ChatGPT proofread my work for any grammar or spelling errors, which saved me time and effort in the revision process. 
