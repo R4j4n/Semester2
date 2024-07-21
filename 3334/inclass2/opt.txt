@@ -1,0 +1,42 @@
+Summary Statistics for battery_power:
+Mean: 1238.52 mAh
+Standard Error: 9.83
+Median: 1226.0 mAh
+Mode: 618 mAh
+Standard Deviation: 439.42 mAh
+Sample Variance: 193088.36
+Kurtosis: -1.22
+Skewness: 0.03
+Range: 1497 mAh
+Minimum: 501 mAh
+Maximum: 1998 mAh
+Count: 2000
+
+Percentiles for Battery Power:
+10th Percentile: 634.9 mAh
+25th Percentile: 851.75 mAh
+50th Percentile (Median): 1226.0 mAh
+75th Percentile: 1615.25 mAh
+90th Percentile: 1851.00 mAh
+99th Percentile: 1987.00 mAh
+Summary Statistics for clock_speed:
+Mean: 1.52 mAh
+Standard Error: 0.02
+Median: 1.5 mAh
+Mode: 0.5 mAh
+Standard Deviation: 0.82 mAh
+Sample Variance: 0.67
+Kurtosis: -1.32
+Skewness: 0.18
+Range: 2.5 mAh
+Minimum: 0.5 mAh
+Maximum: 3.0 mAh
+Count: 2000
+
+Percentiles for Battery Power:
+10th Percentile: 0.5 mAh
+25th Percentile: 0.70 mAh
+50th Percentile (Median): 1.5 mAh
+75th Percentile: 2.20 mAh
+90th Percentile: 2.70 mAh
+99th Percentile: 3.00 mAh
