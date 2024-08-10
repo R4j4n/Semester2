@@ -29,7 +29,7 @@ class GetTransformer:
         if dataframe:
             self.dataframe = dataframe
         else:
-            self.dataframe = pd.read_csv("models/cleaned.csv")
+            self.dataframe = pd.read_csv("static/cleaned.csv")
             self.dataframe.drop("Unnamed: 0", axis=1, inplace=True)
 
         self.nominal_variables = [
